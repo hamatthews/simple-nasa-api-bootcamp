@@ -119,7 +119,9 @@ h1 > div {
   height: 300px;
 }
 
-.img-panel img{
+.img-panel img,
+.img-panel iframe{
+  position: relative;
   padding: 20px;
   width: 100%;
   height: 100%;
@@ -130,6 +132,12 @@ h1 > div {
   0 0/var(--size) var(--size),
   linear-gradient(45deg,var(--c1) 0 25%,var(--c2) 0 50%)
   0 0/calc(2*var(--size)) calc(2*var(--size));
+  z-index: 1;
+}
+
+iframe {
+  border: 2px solid var(--color-1);
+  border-radius: 10px;
 }
 
 .text-panel .content{
@@ -150,6 +158,12 @@ section {
   gap: 10px;
 }
 
+#photo.hidden {
+  display: none;
+}
+#video.hidden {
+  visibility: hidden;
+}
 
 /******************************************
 /* ADDITIONAL STYLES

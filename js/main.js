@@ -6,6 +6,7 @@ class PhotoFinder {
         this.dateElement = document.querySelector("#date-picker");
         this.titleElement = document.querySelector("#title");
         this.photoElement = document.querySelector("#photo");
+        this.videoElement = document.querySelector("#video");
         this.descriptionElement = document.querySelector("#description");
         this.fullDescription = "";
 
@@ -24,15 +25,32 @@ class PhotoFinder {
         .then(data => {
             console.log(data);
 
-            if (data.hdurl) {
+            if (data.media_type === "image") {
                 this.titleElement.innerText = data.title;                
                 this.photoElement.src = data.hdurl;
+                this.videoElement.src = "";                
                 this.descriptionElement.innerText = data.explanation;    
+                
+                this.photoElement.classList.remove("hidden");                
+                this.videoElement.classList.add("hidden");
+            }
+            else if (data.media_type === "video") {
+                this.titleElement.innerText = data.title;
+                this.photoElement.src = "";
+                this.videoElement.src = data.url;                
+                this.descriptionElement.innerText = data.explanation;    
+
+                this.photoElement.classList.add("hidden");                
+                this.videoElement.classList.remove("hidden");
             }
             else {
                 this.titleElement.innerText = "No image available for that date!";
                 this.photoElement.src = "img/saturn-svgrepo-com.svg";
+                this.videoElement.src = "";
                 this.descriptionElement.innerText = "Some dates have other types of media associated with them which we can't currently display. Try a different date to keep exploring!"
+            
+                this.photoElement.classList.remove("hidden");                
+                this.videoElement.classList.add("hidden");
             }
         })
         .catch(error => {
